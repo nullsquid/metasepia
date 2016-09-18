@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 
 public class PlugBase : BlockBase {
@@ -13,10 +14,14 @@ public class PlugBase : BlockBase {
     #endregion
 
     #region Utility Methods
+    #if UNITY_EDITOR
     public override void DrawBlock()
     {
-        base.DrawBlock();
+        //response = GUILayout.TextField("response", response);
+        //response = EditorGUILayout.TextField("Response: ", response);
+        
     }
+    #endif
     public override void DrawStrands()
     {
 

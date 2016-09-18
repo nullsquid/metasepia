@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
+using System.Collections;
+using System.Linq;
+
 public class METAsepiaEditor : EditorWindow {
     #region Private Variables
     private Dialogue curDialogue;
@@ -113,17 +115,24 @@ public class METAsepiaEditor : EditorWindow {
         ContextCallback("addPlug");
     }
 
+    void RemoveResponse()
+    {
+        ContextCallback("removePlug");
+    }
+
     #endregion
 
     #region Utility Methods
     void OnEnable()
     {
         ConversationBlock.OnAddResponse += AddResponse;
+        ConversationBlock.OnRemoveResponse += RemoveResponse;
     }
 
     void OnDisable()
     {
         ConversationBlock.OnAddResponse -= AddResponse;
+        ConversationBlock.OnRemoveResponse -= RemoveResponse;
     }
 
     void DrawBlockWindow(int id)
@@ -150,26 +159,42 @@ public class METAsepiaEditor : EditorWindow {
         }
         else if (callback.Equals("addPlug"))
         {
-            Debug.Log("plug added");
             ConversationBlock selectedConvBlock = selectedBlock as ConversationBlock;
-            curConvBlock.blockRect.height += 20f;
 
-            PlugBase plug = (PlugBase)ScriptableObject.CreateInstance("PlugBase");
-            //plug.blockRect = new Rect(mousePos.x, mousePos.y, 100, 50);
+            //need to math out how high this can and should be
+            curConvBlock.blockRect.height += 50f;
+
+            ResponsePlug resPlug = (ResponsePlug)ScriptableObject.CreateInstance("ResponsePlug");
             
-            //ConversationBlock selectedConvBlock;
-            //selectedConvBlock = selectedBlock as ConversationBlock;
-
-            //PlugBase plug = (PlugBase)ScriptableObject.CreateInstance("PlugBase");
-
-            //well this is fucked
-            selectedConvBlock.responses.Add(plug);
-            //plug.blockRect = new Rect(mousePos.x, mousePos.y, 100, 50);
+            
+            selectedConvBlock.responses.Add(resPlug);
             
             
 
         }
-        ////
+        else if (callback.Equals("removePlug"))
+        {
+            Debug.Log("plug removed");
+            
+            ConversationBlock selectedConvBlock = selectedBlock as ConversationBlock;
+            if (selectedConvBlock.responses.Count > 0){
+
+                
+
+                for (int i = 0; i < selectedConvBlock.responses.Count; i++)
+                {
+                    if (selectedConvBlock.responses[i] == selectedConvBlock.responses.Last())
+                    {
+                        selectedConvBlock.responses.Remove(selectedConvBlock.responses[i]);
+                    }
+                }
+                curConvBlock.blockRect.height -= 50f;
+
+            }
+
+
+        }
+        ////////////////////////////////////////////////////
         else if (callback.Equals("newDialogue"))
         {
             curDialogue = null;
