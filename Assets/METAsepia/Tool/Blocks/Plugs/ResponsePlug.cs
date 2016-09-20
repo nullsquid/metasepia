@@ -15,7 +15,7 @@ public class ResponsePlug : PlugBase {
             //need to add event here to notify metasepia editor
         }
     }
-
+    //might need to let response know what node its attached to. do in METASEPIA editor
     public string GetTextResponse()
     {
         return response.ToString();
