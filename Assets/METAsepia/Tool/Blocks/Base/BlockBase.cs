@@ -15,15 +15,20 @@ public abstract class BlockBase : ScriptableObject {
     #endregion
 
     #region Main Methods
-    public virtual void DrawBlock()
+    public virtual void SetInput(PlugBase input, Vector2 clickPos)
     {
-        blockTitle = EditorGUILayout.TextField("Title: ", blockTitle);
+
     }
 
 
     #endregion
 
     #region Utility Methods
+    public virtual void DrawBlock()
+    {
+        blockTitle = EditorGUILayout.TextField("Title: ", blockTitle);
+    }
+
     public abstract void DrawStrands();
 
     //public virtual void BlockIsRemoved(BlockBase block) { }

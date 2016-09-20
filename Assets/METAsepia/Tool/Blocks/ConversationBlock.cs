@@ -28,7 +28,6 @@ public class ConversationBlock : BlockBase {
 
     #region Private Variables
     private ResponsePlug inputPlug;
-    private string inputName;
     private Rect inputRect;
     #endregion
 
@@ -51,6 +50,7 @@ public class ConversationBlock : BlockBase {
     {
         base.DrawBlock();
         Event e = Event.current;
+        string inputName = "None";
         if (inputPlug)
         {
             inputName = inputPlug.GetTextResponse();
@@ -59,7 +59,7 @@ public class ConversationBlock : BlockBase {
         {
             inputRect = GUILayoutUtility.GetLastRect();
         }
-        GUILayout.Label("Responding to" + inputName);
+        GUILayout.Label("Responding to: " + inputName);
         prompt = EditorGUILayout.TextField("Prompt:", prompt);
         EditorGUILayout.BeginHorizontal();
         if(GUILayout.Button("Add Response"))
@@ -83,11 +83,32 @@ public class ConversationBlock : BlockBase {
             responses[i].DrawBlock();
         }
     }
+
+    public override void SetInput(PlugBase input, Vector2 clickPos)
+    {
+        clickPos.x -= blockRect.x;
+        clickPos.y -= blockRect.y;
+
+        if (inputRect.Contains(clickPos))
+        {
+            inputPlug = input as ResponsePlug;
+        }
+    }
+
     public override void DrawStrands()
     {
         if (inputPlug)
         {
             Rect rect = blockRect;
+
+            rect.x += inputRect.x;
+            rect.y += inputRect.y + inputRect.height / 2;
+
+            rect.height = 1;
+            rect.width = 1;
+
+            
+
 
         }
     }
