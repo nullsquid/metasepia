@@ -91,19 +91,7 @@ public class METAsepiaEditor : EditorWindow {
                     Debug.Log("current conv block is " + curConvBlock.blockTitle);
                     selectedBlock = curConvBlock;
 
-                    if (curConvBlock != null) {
-                        if (curConvBlock.responses.Count > 0)
-                        {
-                            for (int j = 0; j < curConvBlock.responses.Count; j++)
-                            {
-                                //need to set up selectedblock
-                                //why the hell isn't this working -_-
-                                //curConvBlock.responses[j].blockRect = GUI.Window(j, curConvBlock.responses[j].blockRect, DrawPlugWindow, curConvBlock.responses[j].blockTitle);
-                                
-                                Debug.Log("number of responses = " + curConvBlock.responses.Count);
-                            }
-                        }
-                    }
+                    
                 }
             }
         }

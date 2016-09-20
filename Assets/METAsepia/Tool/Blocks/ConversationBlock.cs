@@ -34,7 +34,11 @@ public class ConversationBlock : BlockBase {
     #region Main Methods
     public string GetTextPrompt()
     {
-        return prompt.ToString();
+        if (inputPlug)
+        {
+            //return 
+        }
+        return null;
     }
     
     #endregion
@@ -112,5 +116,8 @@ public class ConversationBlock : BlockBase {
 
         }
     }
+
+
+    
     #endregion
 }

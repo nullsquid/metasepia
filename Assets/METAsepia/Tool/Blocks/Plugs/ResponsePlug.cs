@@ -20,9 +20,11 @@ public class ResponsePlug : PlugBase {
     {
         return response.ToString();
     }
-    #endif
+
     public override void DrawStrands()
     {
-        
+
     }
+#endif
+
 }
