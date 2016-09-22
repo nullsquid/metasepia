@@ -153,7 +153,7 @@ public class METAsepiaEditor : EditorWindow {
             curConvBlock.blockRect.height += 50f;
 
             ResponsePlug resPlug = (ResponsePlug)ScriptableObject.CreateInstance("ResponsePlug");
-
+            //resPlug.plugRect = new Rect
             
             selectedConvBlock.responses.Add(resPlug);
             

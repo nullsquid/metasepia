@@ -4,7 +4,10 @@ using System.Collections;
 
 public class PlugBase : BlockBase {
 
+    public Rect plugRect;
+
     private bool hasOutput = false;
+
 
     #region Main Methods
     public virtual PlugBase ClickedOnPlug(Vector2 pos)
