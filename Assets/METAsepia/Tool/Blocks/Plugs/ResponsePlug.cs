@@ -4,6 +4,7 @@ using UnityEditor;
 public class ResponsePlug : PlugBase {
 
     private string response;
+    private int id;
     #if UNITY_EDITOR
     public override void DrawBlock()
     {
@@ -11,7 +12,7 @@ public class ResponsePlug : PlugBase {
         response = EditorGUILayout.TextField("Response: ", response);
         if (GUILayout.Button("Add Strand"))
         {
-            Debug.Log("new strand?");
+            Debug.Log("new strand? ");
             //need to add event here to notify metasepia editor
         }
     }

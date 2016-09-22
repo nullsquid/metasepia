@@ -88,7 +88,7 @@ public class METAsepiaEditor : EditorWindow {
                 {
                     
                     curConvBlock = curDialogue.blocks[i] as ConversationBlock;
-                    Debug.Log("current conv block is " + curConvBlock.blockTitle);
+                    
                     selectedBlock = curConvBlock;
 
                     
@@ -153,7 +153,7 @@ public class METAsepiaEditor : EditorWindow {
             curConvBlock.blockRect.height += 50f;
 
             ResponsePlug resPlug = (ResponsePlug)ScriptableObject.CreateInstance("ResponsePlug");
-            
+
             
             selectedConvBlock.responses.Add(resPlug);
             

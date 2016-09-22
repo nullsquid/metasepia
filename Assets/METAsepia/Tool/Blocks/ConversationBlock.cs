@@ -10,8 +10,8 @@ public class ConversationBlock : BlockBase {
 
     #region Public Variables
     public string prompt;
-    public List<PlugBase> responses;
 
+    public List<PlugBase> responses;
     private List<Rect> responseRects;
     //private List<> list of 
 
@@ -38,6 +38,12 @@ public class ConversationBlock : BlockBase {
         {
             //return 
         }
+        return null;
+    }
+
+    public string GetTextResponse()
+    {
+        //placeholder
         return null;
     }
     
@@ -85,6 +91,10 @@ public class ConversationBlock : BlockBase {
         for(int i = 0; i < responses.Count; i++)
         {
             responses[i].DrawBlock();
+            /*if (responseRects[i].Contains(e.mousePosition))
+            {
+                Debug.Log(responses[i]);
+            }*/
         }
     }
 
