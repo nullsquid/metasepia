@@ -121,13 +121,18 @@ public class ConversationBlock : BlockBase {
             rect.height = 1;
             rect.width = 1;
 
-            
+        }
+    }
 
-
+    public override void ClearInput(BlockBase block)
+    {
+        if (block.Equals(inputPlug))
+        {
+            inputPlug = null;
         }
     }
 
 
-    
+
     #endregion
 }

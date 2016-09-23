@@ -31,6 +31,10 @@ public abstract class BlockBase : ScriptableObject {
 
     public abstract void DrawStrands();
 
+    public virtual void ClearInput(BlockBase block)
+    {
+
+    }
     //public virtual void BlockIsRemoved(BlockBase block) { }
     #endregion
 
