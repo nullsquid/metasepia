@@ -76,7 +76,14 @@ public class METAsepiaEditor : EditorWindow {
                 }
             }
         }
+        if (curDialogue != null)
+        {
+            foreach (BlockBase b in curDialogue.blocks)
+            {
+                b.DrawStrands();
+            }
 
+        }
         BeginWindows();
         
         if (curDialogue != null)
@@ -96,6 +103,7 @@ public class METAsepiaEditor : EditorWindow {
             }
         }
         EndWindows();
+        
     }
 
     void AddResponse()
@@ -108,6 +116,11 @@ public class METAsepiaEditor : EditorWindow {
         ContextCallback("removePlug");
     }
 
+    void AddStrand()
+    {
+        ContextCallback("makeStrand");
+    }
+
     #endregion
 
     #region Utility Methods
@@ -115,12 +128,16 @@ public class METAsepiaEditor : EditorWindow {
     {
         ConversationBlock.OnAddResponse += AddResponse;
         ConversationBlock.OnRemoveResponse += RemoveResponse;
+
+        ResponsePlug.OnAddStrand += AddStrand;
     }
 
     void OnDisable()
     {
         ConversationBlock.OnAddResponse -= AddResponse;
         ConversationBlock.OnRemoveResponse -= RemoveResponse;
+
+        ResponsePlug.OnAddStrand -= AddStrand;
     }
 
     void DrawBlockWindow(int id)
@@ -134,7 +151,23 @@ public class METAsepiaEditor : EditorWindow {
         curConvBlock.responses[plugID].DrawBlock();
         GUI.DragWindow();
     }
+    public static void DrawBlockStrands(Rect start, Rect end)
+    {
+        Vector3 startPos = new Vector3(start.x + start.width / 2, start.y + start.height / 2, 0);
+        Vector3 endPos = new Vector3(end.x + end.width / 2, end.y + end.height / 2, 0);
+        Vector3 startTan = startPos + Vector3.right * 50;
+        Vector3 endTan = endPos + Vector3.left * 50;
 
+        Color shadowColor = new Color(.9f, 0, .7f, 0.08f);
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            Handles.DrawBezier(startPos, endPos, startTan, endTan, shadowColor, null, (i + 1) * 5);
+        }
+        Handles.DrawBezier(startPos, endPos, startTan, endTan, Color.magenta, null, 1);
+
+    }
     void ContextCallback(object obj)
     {
         string callback = obj.ToString();
@@ -188,7 +221,29 @@ public class METAsepiaEditor : EditorWindow {
             curDialogue = null;
             curDialogue = (Dialogue)ScriptableObject.CreateInstance("Dialogue");
         }
+        ///////////////////////////////////////////////////
+        else if (callback.Equals("makeStrand"))
+        {
+            bool clickedOnBlock = false;
+            int selectedIndex = -1;
+
+            for(int i = 0; i < curDialogue.blocks.Count; i++)
+            {
+                if (curDialogue.blocks[i].blockRect.Contains(mousePos))
+                {
+                    selectedIndex = i;
+                    clickedOnBlock = true;
+                    break;
+                }
+            }
+            if (clickedOnBlock)
+            {
+                selectedBlock = curDialogue.blocks[selectedIndex];
+                strandModeEnabled = true;
+            }
+        }
     }
+
     #endregion
 
 }

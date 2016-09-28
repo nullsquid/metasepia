@@ -121,6 +121,8 @@ public class ConversationBlock : BlockBase {
             rect.height = 1;
             rect.width = 1;
 
+            METAsepiaEditor.DrawBlockStrands(inputRect, rect);
+
         }
     }
 

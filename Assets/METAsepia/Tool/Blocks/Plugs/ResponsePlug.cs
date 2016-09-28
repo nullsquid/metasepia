@@ -5,13 +5,31 @@ public class ResponsePlug : PlugBase {
 
     private string response;
     private int id;
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
+
+    public delegate void AddStrandsAction();
+    public static event AddStrandsAction OnAddStrand;
+
+    public void OnEnable()
+    {
+
+    }
+    public void OnDisable()
+    {
+
+    }
     public override void DrawBlock()
     {
         base.DrawBlock();
         response = EditorGUILayout.TextField("Response: ", response);
         if (GUILayout.Button("Add Strand"))
         {
+            //Debug.Log(OnAddStrand);
+            if(OnAddStrand != null)
+            {
+                OnAddStrand();
+                Debug.Log("Drawing?");
+            }
             Debug.Log("new strand? ");
             //need to add event here to notify metasepia editor
         }
@@ -24,7 +42,7 @@ public class ResponsePlug : PlugBase {
 
     public override void DrawStrands()
     {
-
+        
     }
 #endif
 
