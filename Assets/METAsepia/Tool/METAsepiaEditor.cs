@@ -76,6 +76,18 @@ public class METAsepiaEditor : EditorWindow {
                 }
             }
         }
+        if(strandModeEnabled && selectedBlock != null)
+        {
+            Rect mouseRect = new Rect(e.mousePosition.x, e.mousePosition.y, 10, 10);
+            //DrawBlockStrands(selectedBlock.blockRect, mouseRect);
+            //DrawBlockStrands()
+            for(int i = 0; i < curConvBlock.responses.Count; i++)
+            {
+                DrawBlockStrands(curConvBlock.responses[i].plugRect, mouseRect);
+            }
+            //DrawBlockStrands(curConvBlock.responses[])
+            Repaint();
+        }
         if (curDialogue != null)
         {
             foreach (BlockBase b in curDialogue.blocks)
