@@ -28,9 +28,7 @@ public class ResponsePlug : PlugBase {
             if(OnAddStrand != null)
             {
                 OnAddStrand();
-                Debug.Log("Drawing?");
             }
-            Debug.Log("new strand? ");
             //need to add event here to notify metasepia editor
         }
     }

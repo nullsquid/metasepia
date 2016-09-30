@@ -79,12 +79,20 @@ public class METAsepiaEditor : EditorWindow {
         if(strandModeEnabled && selectedBlock != null)
         {
             Rect mouseRect = new Rect(e.mousePosition.x, e.mousePosition.y, 10, 10);
-            //DrawBlockStrands(selectedBlock.blockRect, mouseRect);
-            //DrawBlockStrands()
-            for(int i = 0; i < curConvBlock.responses.Count; i++)
+            DrawBlockStrands(selectedBlock.blockRect, mouseRect);
+
+            //The following is probably closer to the right way of doing it
+
+            /*for(int i = 0; i < curConvBlock.responses.Count; i++)
             {
-                DrawBlockStrands(curConvBlock.responses[i].plugRect, mouseRect);
-            }
+                if (curConvBlock.responses[i].plugRect.Contains(e.mousePosition))
+                {
+                    Debug.Log(curConvBlock.responses[i].plugRect);
+                    DrawBlockStrands(curConvBlock.responses[i].plugRect, mouseRect);
+                    Debug.Log("Add strand");
+                    break;
+                }
+            }*/
             //DrawBlockStrands(curConvBlock.responses[])
             Repaint();
         }
@@ -198,6 +206,7 @@ public class METAsepiaEditor : EditorWindow {
             curConvBlock.blockRect.height += 50f;
 
             ResponsePlug resPlug = (ResponsePlug)ScriptableObject.CreateInstance("ResponsePlug");
+            resPlug.plugRect = new Rect(curConvBlock.blockRect.x, 100f/*curConvBlock.blockRect.height * curConvBlock.responses.Count*/ , 50f, curConvBlock.blockRect.width);
             //resPlug.plugRect = new Rect
             
             selectedConvBlock.responses.Add(resPlug);
