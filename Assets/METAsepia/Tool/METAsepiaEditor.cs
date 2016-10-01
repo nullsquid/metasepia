@@ -8,6 +8,7 @@ public class METAsepiaEditor : EditorWindow {
     private Dialogue curDialogue;
     private Vector2 mousePos;
     private BlockBase selectedBlock;
+    private PlugBase selectedPlug;
     private bool strandModeEnabled = false;
     private ConversationBlock curConvBlock;
     //will use to get data during runtime
@@ -82,6 +83,7 @@ public class METAsepiaEditor : EditorWindow {
             DrawBlockStrands(selectedBlock.blockRect, mouseRect);
 
             //The following is probably closer to the right way of doing it
+
 
             /*for(int i = 0; i < curConvBlock.responses.Count; i++)
             {
@@ -246,20 +248,43 @@ public class METAsepiaEditor : EditorWindow {
         else if (callback.Equals("makeStrand"))
         {
             bool clickedOnBlock = false;
+            bool clickedOnPlug = false;
             int selectedIndex = -1;
+            int selectedPlugIndex = -1;
 
+           
+            
             for(int i = 0; i < curDialogue.blocks.Count; i++)
             {
+
                 if (curDialogue.blocks[i].blockRect.Contains(mousePos))
                 {
-                    selectedIndex = i;
-                    clickedOnBlock = true;
+                    //might need to take out this second for loop
+
+                    //this loop IS firing
+                    for(int j = 0; j < curConvBlock.responses.Count; j++)
+                        {
+                            //this conditional is not firing
+                            //might want to use a command for this?
+                            if (curConvBlock.responses[j].plugRect.Contains(mousePos))
+                            {
+                                selectedPlugIndex = j;
+                                Debug.Log(i + " + " + j);
+                                clickedOnPlug = true;
+                                break;
+                            }
+                        }
+                    
                     break;
+                    
                 }
             }
-            if (clickedOnBlock)
+            //was clickedOnBlock
+            //Trying this
+            if (clickedOnPlug)
             {
                 selectedBlock = curDialogue.blocks[selectedIndex];
+                selectedPlug = curConvBlock.responses[selectedPlugIndex];
                 strandModeEnabled = true;
             }
         }
